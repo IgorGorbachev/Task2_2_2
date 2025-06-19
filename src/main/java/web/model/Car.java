@@ -1,6 +1,11 @@
 package web.model;
 
 
+import org.springframework.stereotype.Component;
+
+import java.util.Objects;
+
+@Component
 public class Car {
     private static int nextId = 1;
     private int id;
@@ -62,5 +67,17 @@ public class Car {
                ", color='" + color + '\'' +
                ", price=" + price +
                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Car car = (Car) o;
+        return id == car.id && price == car.price && Objects.equals(name, car.name) && Objects.equals(color, car.color);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, color, price);
     }
 }
